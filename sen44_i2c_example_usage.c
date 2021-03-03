@@ -97,9 +97,9 @@ int main(void) {
         uint16_t mass_concentration_pm2p5;
         uint16_t mass_concentration_pm4p0;
         uint16_t mass_concentration_pm10p0;
-        int16_t voc_index;
-        int16_t ambient_humidity;
-        int16_t ambient_temperature;
+        float voc_index;
+        float ambient_humidity;
+        float ambient_temperature;
 
         error = sen44_read_measured_mass_concentration_and_ambient_values(
             &mass_concentration_pm1p0, &mass_concentration_pm2p5,
@@ -112,15 +112,17 @@ int main(void) {
                    ": %i\n",
                    error);
         } else {
-            printf("Mass concentration pm1p0: %u\n", mass_concentration_pm1p0);
-            printf("Mass concentration pm2p5: %u\n", mass_concentration_pm2p5);
-            printf("Mass concentration pm4p0: %u\n", mass_concentration_pm4p0);
-            printf("Mass concentration pm10p0: %u\n",
+            printf("Mass concentration pm1p0: %u µg/m³\n",
+                   mass_concentration_pm1p0);
+            printf("Mass concentration pm2p5: %u µg/m³\n",
+                   mass_concentration_pm2p5);
+            printf("Mass concentration pm4p0: %u µg/m³\n",
+                   mass_concentration_pm4p0);
+            printf("Mass concentration pm10p0: %u µg/m³\n",
                    mass_concentration_pm10p0);
-            printf("Voc index: %.1f\n", voc_index / 10.0f);
-            printf("Ambient humidity: %.2f%%RH\n", ambient_humidity / 100.0f);
-            printf("Ambient temperature: %.2f°C\n",
-                   ambient_temperature / 200.0f);
+            printf("Voc index: %.1f\n", voc_index);
+            printf("Ambient humidity: %.2f %%RH\n", ambient_humidity);
+            printf("Ambient temperature: %.2f °C\n", ambient_temperature);
         }
     }
 

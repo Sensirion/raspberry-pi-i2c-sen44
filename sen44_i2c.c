@@ -132,7 +132,7 @@ int16_t sen44_read_measured_pm_values(
     return NO_ERROR;
 }
 
-int16_t sen44_read_measured_mass_concentration_and_ambient_values(
+int16_t sen44_read_measured_mass_concentration_and_ambient_values_ticks(
     uint16_t* mass_concentration_pm1p0, uint16_t* mass_concentration_pm2p5,
     uint16_t* mass_concentration_pm4p0, uint16_t* mass_concentration_pm10p0,
     int16_t* voc_index, int16_t* ambient_humidity,
@@ -163,9 +163,32 @@ int16_t sen44_read_measured_mass_concentration_and_ambient_values(
     return NO_ERROR;
 }
 
-int16_t sen44_read_measured_ambient_values(int16_t* voc_index,
-                                           int16_t* ambient_humidity,
-                                           int16_t* ambient_temperature) {
+int16_t sen44_read_measured_mass_concentration_and_ambient_values(
+    uint16_t* mass_concentration_pm1p0, uint16_t* mass_concentration_pm2p5,
+    uint16_t* mass_concentration_pm4p0, uint16_t* mass_concentration_pm10p0,
+    float* voc_index, float* ambient_humidity, float* ambient_temperature) {
+    int16_t error = 0;
+    int16_t voc_index_ticks;
+    int16_t ambient_humidity_ticks;
+    int16_t ambient_temperature_ticks;
+
+    error = sen44_read_measured_mass_concentration_and_ambient_values_ticks(
+        mass_concentration_pm1p0, mass_concentration_pm2p5,
+        mass_concentration_pm4p0, mass_concentration_pm10p0, &voc_index_ticks,
+        &ambient_humidity_ticks, &ambient_temperature_ticks);
+    if (error) {
+        return error;
+    }
+
+    *voc_index = (float)voc_index_ticks / 10.0f;
+    *ambient_humidity = (float)ambient_humidity_ticks / 100.0f;
+    *ambient_temperature = (float)ambient_temperature_ticks / 200.0f;
+    return NO_ERROR;
+}
+
+int16_t sen44_read_measured_ambient_values_ticks(int16_t* voc_index,
+                                                 int16_t* ambient_humidity,
+                                                 int16_t* ambient_temperature) {
     int16_t error;
     uint8_t buffer[9];
     uint16_t offset = 0;
@@ -185,6 +208,26 @@ int16_t sen44_read_measured_ambient_values(int16_t* voc_index,
     *voc_index = sensirion_common_bytes_to_int16_t(&buffer[0]);
     *ambient_humidity = sensirion_common_bytes_to_int16_t(&buffer[2]);
     *ambient_temperature = sensirion_common_bytes_to_int16_t(&buffer[4]);
+    return NO_ERROR;
+}
+
+int16_t sen44_read_measured_ambient_values(float* voc_index,
+                                           float* ambient_humidity,
+                                           float* ambient_temperature) {
+    int16_t error = 0;
+    int16_t voc_index_ticks;
+    int16_t ambient_humidity_ticks;
+    int16_t ambient_temperature_ticks;
+
+    error = sen44_read_measured_ambient_values_ticks(
+        &voc_index_ticks, &ambient_humidity_ticks, &ambient_temperature_ticks);
+    if (error) {
+        return error;
+    }
+
+    *voc_index = (float)voc_index_ticks / 10.0f;
+    *ambient_humidity = (float)ambient_humidity_ticks / 100.0f;
+    *ambient_temperature = (float)ambient_temperature_ticks / 200.0f;
     return NO_ERROR;
 }
 
