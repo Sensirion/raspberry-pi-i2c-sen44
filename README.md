@@ -1,30 +1,24 @@
 Getting Started on Raspberry Pi
 ===============================
 
-This document explains how to set up the Sen44 sensor to run on a Raspberry Pi
+This document explains how to set up the SEN44 sensor module to run on a Raspberry Pi
 using the provided code.
-
-TODO: DRIVER_GENERATOR Add picture of sensor to images/Sen44.png
-[<center><img src="images/Sen44.png" width="300px"></center>](TODO: DRIVER_GENERATOR Add evaluation kit URL)
-
-Click [here](TODO: DRIVER_GENERATOR Add evaluation kit URL) to learn more about the SCD4x Sensor and the SCD41 Evaluation Kit Board.
-
 
 Setup Guide
 -----------
 
 ### Connecting the Sensor
 
-Your sensor has the four different connectors: VCC, GND, SDA, SCL, SEL. Use
-the following pins to connect your Sen44:
+Your sensor has the four different connectors: VCC, GND, SDA, SCL, SEL (the sixth connector will not be used for now).
+Use the following pins to connect your SEN44:
 
- *Sen44*  |    *Raspberry Pi*
- :------: | :------------------:
-   VCC    |        Pin 1
-   GND    |        Pin 6
-   SDA    |        Pin 3
-   SCL    |        Pin 5
-   SEL    |        Pin 9 TODO: DRIVER_GENERATOR Check if this applies
+ *SEN44*  |    *Raspberry Pi*           |   *Jumper Wire*   |
+ :------: | :-------------------------: | :---------------: |
+   VCC    |        Pin 2 (5V)           |   Red             |
+   GND    |        Pin 6                |   Black           |
+   SDA    |        Pin 3                |   Green           |
+   SCL    |        Pin 5                |   Yellow          |
+   SEL    |        Pin 9 (GND for I2C)  |   Blue            |
 
 <center><img src="images/GPIO-Pinout-Diagram.png" width="900px"></center>
 
@@ -50,7 +44,22 @@ the following pins to connect your Sen44:
 
       Output:
       ```
-      TODO: DRIVER_GENERATOR Add sensor output
+      Serial number: C081C2651224B6FE
+      Firmware: 0.4, Hardware: 6.0
+      Mass concentration pm1p0: 1 µg/m³
+      Mass concentration pm2p5: 5 µg/m³
+      Mass concentration pm4p0: 9 µg/m³
+      Mass concentration pm10p0: 11 µg/m³
+      Voc index: 0.0
+      Ambient humidity: 36.77 %RH
+      Ambient temperature: 26.20 °C
+      Mass concentration pm1p0: 4 µg/m³
+      Mass concentration pm2p5: 6 µg/m³
+      Mass concentration pm4p0: 7 µg/m³
+      Mass concentration pm10p0: 8 µg/m³
+      Voc index: 0.0
+      Ambient humidity: 36.77 %RH 
+      Ambient temperature: 26.20 °C
       ...
       ```
 
