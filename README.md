@@ -8,7 +8,7 @@ This document explains how to set up the SEN44 sensor module to run on a Raspber
 
 ### Connecting the Sensor
 
-Your sensor has the four different connectors: VCC, GND, SDA, SCL, SEL (the sixth connector will not be used for now).
+Your sensor has the five different connectors: VCC, GND, SDA, SCL, SEL (the sixth connector will not be used for now).
 Use the following pins to connect your SEN44:
 
 *SEN44*  |    *Raspberry Pi*           |   *Jumper Wire*   |
